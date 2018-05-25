@@ -1,7 +1,8 @@
-package com.mybatis.mapper;
+package com.mybatis.mapper.master;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.mybatis.domain.User;
@@ -10,6 +11,7 @@ import com.mybatis.domain.User;
  * @author gwl
  * @data 2018年5月21日
  */
+@Mapper
 public interface UserMapper {
 
 	public User getUserById(@Param("id") Long id);

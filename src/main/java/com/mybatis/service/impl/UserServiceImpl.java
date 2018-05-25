@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mybatis.domain.User;
-import com.mybatis.mapper.UserMapper;
+import com.mybatis.mapper.master.UserMapper;
 import com.mybatis.service.UserService;
 
 /**
