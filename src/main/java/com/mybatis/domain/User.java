@@ -1,10 +1,14 @@
 package com.mybatis.domain;
 
+import java.io.Serializable;
+
 /**
  * @author gwl
  * @data 2018年5月11日
  */
-public class User {
+public class User implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	long id ;
 	String name ;

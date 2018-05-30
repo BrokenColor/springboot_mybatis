@@ -1,10 +1,14 @@
 package com.mybatis.service.impl;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import com.mybatis.domain.User;
@@ -16,14 +20,42 @@ import com.mybatis.service.UserService;
  * @data 2018年5月11日
  */
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+
 	@Resource
 	private UserMapper userMapper;
 
+	@Resource
+	private RedisTemplate<String, User> redisTemplate;
+
+	/**
+	 * 获取用户逻辑： 如果缓存存在，从缓存中获取用户信息 如果缓存不存在，从 DB 中获取用户信息，然后插入缓存
+	 */
 	@Override
 	public User getUserById(Long id) {
-		return userMapper.getUserById(id);
+		// 从缓存中获取用户信息
+		String key = "user_" + id;
+		ValueOperations<String, User> operations = redisTemplate.opsForValue();
+
+		// 缓存存在
+		boolean hasKey = redisTemplate.hasKey(key);
+		if (hasKey) {
+			User user = operations.get(key);
+
+			LOGGER.info("UserServiceImpl.getUserById() : 从缓存中获取了用户 >> " + user.toString());
+			return user;
+		}
+
+		// 从 DB 中获取用户信息
+		User user = userMapper.getUserById(id);
+
+		// 插入缓存
+		operations.set(key, user, 100, TimeUnit.SECONDS);
+		LOGGER.info("UserServiceImpl.getUserById() : 用户插入缓存 >> " + user.toString());
+
+		return user;
 	}
 
 	@Override
@@ -36,13 +68,40 @@ public class UserServiceImpl implements UserService{
 		return userMapper.add(user);
 	}
 
+	/**
+     * 更新逻辑：
+     * 如果缓存存在，删除
+     * 如果缓存不存在，不操作
+     */
 	@Override
 	public int update(Long id, User user) {
-		return userMapper.update(id, user);
+
+		int num = userMapper.update(id, user);
+
+		String key = "user_" + id;
+		boolean haskey = redisTemplate.hasKey(key);
+		if (haskey) {
+			redisTemplate.delete(key);
+
+			LOGGER.info("UserServiceImpl.update() : 删除用户缓存 >> " + user.toString());
+		}
+
+		return num;
 	}
 
 	@Override
 	public int delete(Long id) {
-		return userMapper.delete(id);
+
+		int num = userMapper.delete(id);
+
+		String key = "user_" + id;
+		boolean haskey = redisTemplate.hasKey(key);
+		if (haskey) {
+			redisTemplate.delete(key);
+
+			LOGGER.info("UserServiceImpl.delete() : 删除用户缓存 >> " + id);
+		}
+
+		return num;
 	}
 }
