@@ -1,2 +1,6 @@
 # springboot_mybatis
-springboot与mybatis结合
+1、springboot与mybatis结合
+2、添加swagger的集成
+3、添加多数据源的集成
+4、添加redis的集成
+5、添加日志配置
