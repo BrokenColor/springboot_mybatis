@@ -16,7 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年6月1日
  *  使用@Aspect注解将一个java类定义为切面类 
  *  使用@Pointcut定义一个切入点，可以是一个规则表达式，比如下例中某个package下的所有函数，也可以是一个注解等。

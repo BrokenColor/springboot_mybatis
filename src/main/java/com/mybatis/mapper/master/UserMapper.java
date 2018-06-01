@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.mybatis.domain.User;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月21日
  */
 @Mapper

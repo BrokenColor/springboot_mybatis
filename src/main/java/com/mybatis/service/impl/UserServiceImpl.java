@@ -16,7 +16,7 @@ import com.mybatis.mapper.master.UserMapper;
 import com.mybatis.service.UserService;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月11日
  */
 @Service

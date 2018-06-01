@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.alibaba.druid.pool.DruidDataSource;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月23日
  */
 @Configuration

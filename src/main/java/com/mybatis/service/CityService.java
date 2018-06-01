@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.mybatis.domain.City;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月24日
  */
 public interface CityService {

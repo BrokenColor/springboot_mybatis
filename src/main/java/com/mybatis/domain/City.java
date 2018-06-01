@@ -1,7 +1,7 @@
 package com.mybatis.domain;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月24日
  */
 public class City {

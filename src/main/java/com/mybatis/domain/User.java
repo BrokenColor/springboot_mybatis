@@ -3,7 +3,7 @@ package com.mybatis.domain;
 import java.io.Serializable;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月11日
  */
 public class User implements Serializable {

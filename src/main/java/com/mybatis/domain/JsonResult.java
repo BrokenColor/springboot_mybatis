@@ -1,7 +1,7 @@
 package com.mybatis.domain;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月14日
  */
 public class JsonResult {

@@ -11,7 +11,7 @@ import com.mybatis.mapper.cluster.CityMapper;
 import com.mybatis.service.CityService;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月24日
  */
 @Service

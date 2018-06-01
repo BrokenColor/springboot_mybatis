@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * @author gwl
+ * @author BrokenColor
  * @data 2018年5月24日
  */
 @Controller
