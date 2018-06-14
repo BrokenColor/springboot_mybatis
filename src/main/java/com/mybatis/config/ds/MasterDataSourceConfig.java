@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -28,26 +29,27 @@ public class MasterDataSourceConfig {
     static final String PACKAGE = "com.mybatis.mapper.master";
     static final String MAPPER_LOCATION = "classpath:mapper/master/*.xml";
 
-    @Value("${master.datasource.url}")
-    private String url;
-
-    @Value("${master.datasource.username}")
-    private String user;
-
-    @Value("${master.datasource.password}")
-    private String password;
-
-    @Value("${master.datasource.driverClassName}")
-    private String driverClass;
+//    @Value("${master.datasource.url}")
+//    private String url;
+//
+//    @Value("${master.datasource.username}")
+//    private String user;
+//
+//    @Value("${master.datasource.password}")
+//    private String password;
+//
+//    @Value("${master.datasource.driverClassName}")
+//    private String driverClass;
 
     @Bean(name = "masterDataSource")
     @Primary
+    @ConfigurationProperties(prefix="master.datasource")
     public DataSource masterDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(driverClass);
-        dataSource.setUrl(url);
-        dataSource.setUsername(user);
-        dataSource.setPassword(password);
+//        dataSource.setDriverClassName(driverClass);
+//        dataSource.setUrl(url);
+//        dataSource.setUsername(user);
+//        dataSource.setPassword(password);
         return dataSource;
     }
 

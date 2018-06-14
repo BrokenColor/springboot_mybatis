@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -26,25 +27,26 @@ public class ClusterDataSourceConfig {
     static final String PACKAGE = "com.mybatis.mapper.cluster";
     static final String MAPPER_LOCATION = "classpath:mapper/cluster/*.xml";
 
-    @Value("${cluster.datasource.url}")
-    private String url;
-
-    @Value("${cluster.datasource.username}")
-    private String user;
-
-    @Value("${cluster.datasource.password}")
-    private String password;
-
-    @Value("${cluster.datasource.driverClassName}")
-    private String driverClass;
+//    @Value("${cluster.datasource.url}")
+//    private String url;
+//
+//    @Value("${cluster.datasource.username}")
+//    private String user;
+//
+//    @Value("${cluster.datasource.password}")
+//    private String password;
+//
+//    @Value("${cluster.datasource.driverClassName}")
+//    private String driverClass;
 
     @Bean(name = "clusterDataSource")
+    @ConfigurationProperties(prefix="cluster.datasource")
     public DataSource clusterDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(driverClass);
-        dataSource.setUrl(url);
-        dataSource.setUsername(user);
-        dataSource.setPassword(password);
+//        dataSource.setDriverClassName(driverClass);
+//        dataSource.setUrl(url);
+//        dataSource.setUsername(user);
+//        dataSource.setPassword(password);
         return dataSource;
     }
 
