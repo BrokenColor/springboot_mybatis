@@ -15,6 +15,7 @@ import com.mybatis.domain.JsonResult;
 import com.mybatis.domain.User;
 import com.mybatis.service.UserService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping("/users") //通过这里配置使下面的映射都在/users下，
+//@Api(tags= {"用户操作接口"},description = "UserController")
 public class UserController {
 	
 	@Resource
@@ -53,7 +55,7 @@ public class UserController {
      */
     @ApiOperation(value="创建用户", notes="根据User对象创建用户")
     @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
-    @RequestMapping(value="", method=RequestMethod.POST)
+    @RequestMapping(value="add", method=RequestMethod.POST)
     public ResponseEntity<JsonResult> add (@RequestBody User user){
 		JsonResult r = new JsonResult();
 		try {
@@ -75,7 +77,7 @@ public class UserController {
 	}
 
     @ApiOperation(value="获取用户详细信息", notes="根据url的id来获取用户详细信息")
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "path")
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "query")
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
 	public ResponseEntity<JsonResult> getUserById (@PathVariable Long id){
 		JsonResult r = new JsonResult();
@@ -118,7 +120,7 @@ public class UserController {
 	}
 
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "path")
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "query")
     @RequestMapping(value = "user/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<JsonResult> delete (@PathVariable(value = "id") Long id){
 		JsonResult r = new JsonResult();
