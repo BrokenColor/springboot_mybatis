@@ -6,16 +6,18 @@ import javax.annotation.Resource;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
 import com.mybatis.domain.JsonResult;
 import com.mybatis.domain.User;
 import com.mybatis.service.UserService;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -48,6 +50,20 @@ public class UserController {
 		return ResponseEntity.ok(r);
 	}
 
+    @ApiOperation(value = "查询用户", notes = "分页查询用户所有")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "当前页码",
+                    dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "size", value = "每页显示条数",
+                    dataType = "Integer", paramType = "query")
+    })
+    @PostMapping("/selectAll")
+    public ResponseEntity<PageInfo<User>> selectAll(@RequestParam(defaultValue = "0") Integer page,
+                                          @RequestParam(defaultValue = "0") Integer size) {
+        PageInfo<User> pageInfo = userService.selectAll(page, size);
+        return ResponseEntity.ok(pageInfo);
+    }
+    
     /*
      * 我们通过@ApiOperation注解来给API增加说明、
      * 通过@ApiImplicitParams、@ApiImplicitParam注解来给参数增加说明。

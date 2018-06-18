@@ -11,6 +11,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mybatis.domain.User;
 import com.mybatis.mapper.master.UserMapper;
 import com.mybatis.service.UserService;
@@ -61,6 +63,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getUserList() {
 		return userMapper.getUserList();
+	}
+
+	
+	@Override
+	public PageInfo<User> selectAll(Integer page, Integer size) {
+		//开启分页查询，写在查询语句上方
+	    //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页。
+	    PageHelper.startPage(page, size);
+	    List<User> userInfoList = userMapper.getUserList();
+	    PageInfo<User> pageInfo = new PageInfo<>(userInfoList);
+	    return pageInfo;
 	}
 
 	@Override
