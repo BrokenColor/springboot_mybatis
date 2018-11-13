@@ -6,10 +6,11 @@
 		<id column="user_id" property="id" jdbcType="INTEGER" />
 		<result column="user_name" property="name" jdbcType="VARCHAR" />
 		<result column="user_age" property="age" jdbcType="INTEGER" />
+		<result column="time" property="time"/>
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		user_id, user_name, user_age
+		user_id, user_name, user_age,time
 	</sql>
 	
 	<select id="getUserById" resultMap="BaseResultMap"
@@ -33,10 +34,11 @@
 	</delete>
 
 	<insert id="add" parameterType="com.mybatis.domain.User">
-		insert into user (user_id, user_name, user_age)
+		insert into user (user_id, user_name, user_age,time)
 		values (#{user.id,jdbcType=INTEGER}, 
 				#{user.name,jdbcType=VARCHAR},
-				#{user.age,jdbcType=INTEGER})
+				#{user.age,jdbcType=INTEGER},
+				#{user.time})
 	</insert>
 	<!-- 
 	<insert id="insertSelective" parameterType="com.mybatis.domain.User">

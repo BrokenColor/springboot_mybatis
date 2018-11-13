@@ -1,6 +1,7 @@
 package com.mybatis.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author BrokenColor
@@ -13,6 +14,7 @@ public class User implements Serializable {
 	long id ;
 	String name ;
 	int age ;
+	Date time;
 	
 	/**
 	 * @return the id
@@ -50,6 +52,10 @@ public class User implements Serializable {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
-	
+	public Date getTime() {
+		return time;
+	}
+	public void setTime(Date time) {
+		this.time = time;
+	}
 }

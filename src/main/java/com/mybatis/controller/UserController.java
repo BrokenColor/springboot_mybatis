@@ -93,12 +93,12 @@ public class UserController {
 	}
 
     @ApiOperation(value="获取用户详细信息", notes="根据url的id来获取用户详细信息")
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "query")
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "path")
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<JsonResult> getUserById (@PathVariable Long id){
+	public ResponseEntity<JsonResult> getUserById (@PathVariable String id){
 		JsonResult r = new JsonResult();
 		try {
-			User user = userService.getUserById(id);
+			User user = userService.getUserById(Long.parseLong(id));
 			r.setResult(user);
 			r.setStatus("ok");
 		} catch (Exception e) {
@@ -115,10 +115,10 @@ public class UserController {
             @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
     })
     @RequestMapping(value = "user/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<JsonResult> update (@PathVariable("id") Long id, @RequestBody User user){
+	public ResponseEntity<JsonResult> update (@PathVariable("id") String id, @RequestBody User user){
 		JsonResult r = new JsonResult();
 		try {
-			int ret = userService.update(id, user);
+			int ret = userService.update(Long.parseLong(id), user);
 			if (ret < 0) {
 				r.setResult(ret);
 				r.setStatus("fail");
@@ -136,12 +136,12 @@ public class UserController {
 	}
 
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "query")
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "path")
     @RequestMapping(value = "user/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<JsonResult> delete (@PathVariable(value = "id") Long id){
+	public ResponseEntity<JsonResult> delete (@PathVariable(value = "id") String id){
 		JsonResult r = new JsonResult();
 		try {
-			int ret = userService.delete(id);
+			int ret = userService.delete(Long.parseLong(id));
 			if (ret < 0) {
 				r.setResult(ret);
 				r.setStatus("fail");
